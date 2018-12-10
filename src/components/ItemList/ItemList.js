@@ -17,29 +17,25 @@ export default class ItemList extends Component {
   }
 
   componentDidMount(){
-    this.swapiService
-      .getAllPerson()
-      .then(persons => {
-        this.setState({
-          persons: persons
-        })
+    this.swapiService.getAllPerson()
+    .then(persons => {
+      this.setState({persons})
+    })
+    .catch(err =>{
+      this.setState({
+        err: true
       })
-      .catch(err =>{
-        this.setState({
-          err: true
-        })
-      })
+    })
   }
 
-  
-
-    render() {
-      const { persons, err } = this.state;
-      const content = err ? <ErrorIndicator /> : <ItemRender persons = {persons} />;
-      return (
-        <ul className="item-list list-group">
-          {persons ? content : <Spiner />}
-        </ul>
-      );
-    }
+  render() {
+    const { persons, err } = this.state;
+    const { getPersonId } = this.props;
+    const content = err ? <ErrorIndicator /> : <ItemRender persons = {persons} getPersonId={getPersonId}/>;
+    return (
+      <ul className="item-list list-group">
+        {persons ? content : <Spiner />}
+      </ul>
+    );
+  }
 }

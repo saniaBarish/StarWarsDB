@@ -3,9 +3,9 @@ export default class SwapiService {
     async getResoure(url){
         const res = await fetch(`${this._apiBase}${url}`)
     
-        if (!res.ok){
-            throw new Error(`${url} received ${res.status}`)
-        }
+        // if (!res.ok){
+        //     throw new Error(`${url} received ${res.status}`)
+        // }
 
         return await res.json()
     }

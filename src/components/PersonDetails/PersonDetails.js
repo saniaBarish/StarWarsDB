@@ -2,6 +2,7 @@ import React,{Component} from "react";
 
 import SwapiService from "../../services/SwapiService";
 import Spiner from "../Spiner";
+import ErrorIndicator from "../ErrorIndicator";
 
 import "./PersonDetails.css";
 
@@ -10,27 +11,51 @@ export default class PersonDetails extends Component {
   swapiService = new SwapiService();
 
   state={
-    person: null
+    person: null,
+    err: false,
+    loading: true
+  }
+
+  onError = () =>{
+    this.setState({
+      err: true,
+      loading: false
+    })
   }
 
   componentDidMount(){
-    this.updatePerson();
+    if (!this.state.person){
+      this.updatePerson(this.props.id)
+    }
   }
 
-  updatePerson = () =>{
-    this.swapiService.getPerson(1)
+  componentDidUpdate({id}){
+    if (id !== this.props.id){
+      this.updatePerson(this.props.id);
+    }
+  }
+
+  updatePerson = (id) =>{
+    console.log("update")
+    this.swapiService.getPerson(id)
     .then(person => {
-      this.setState({person});
+      this.setState({
+        person,
+        loading: false
+      });
     })
-    // .catch(err => console.error(err))
+    .catch(this.onError)
+   
 
   }
 
   render() {
 
-    const { person } = this.state;
+    const { person, err, loading } = this.state;
 
-    const content = person ? <PersonView person={person} /> : <Spiner />
+    const catchErr = err ? <ErrorIndicator /> : <PersonView person={person} />;
+
+    const content = loading ?  <Spiner /> : catchErr;
 
     return (
       <div className="person-details card">

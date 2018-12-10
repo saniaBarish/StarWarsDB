@@ -13,7 +13,8 @@ export default class RandomPlanet extends Component {
 
   state = {
     planet: null,
-    err: false
+    err: false,
+    loading: true
   }
 
   componentDidMount(){
@@ -22,9 +23,10 @@ export default class RandomPlanet extends Component {
     // clearInterval(this.interval);
   }
 
-  onError = (err) =>{
+  onError = () =>{
     this.setState({
-      err: true
+      err: true,
+      loading: false
     })
   }
 
@@ -42,13 +44,15 @@ export default class RandomPlanet extends Component {
 
   render() {
 
-    const { planet, err } = this.state 
+    const { planet, err, loading } = this.state 
 
-    const content = err ? <ErrorIndicator /> : <PlanetView planet={planet} />
+    const catchErr = err ? <ErrorIndicator/> : <PlanetView planet={planet} />
+
+    const content = loading ? <Spiner /> : catchErr;
 
     return (
       <div className="random-planet jumbotron rounded">
-        {planet ? content : <Spiner />}
+        {content}
       </div>
 
     );
