@@ -2,9 +2,10 @@ import React, {Component} from "react";
 
 import Header from "../Header";
 import RandomPlanet from "../RandomPlanet";
-import ItemList from "../ItemList";
-import PersonDetails from "../PersonDetails";
+import PersonPage from "../PersonPage";
 import SwapiService from "../../services/SwapiService";
+import PlanetPage from "../PlanetPage";
+import StarshipPage from "../StarshipPage";
 
 
 import "./App.css";
@@ -14,26 +15,26 @@ export default class App extends Component {
   swapiService = new SwapiService();
 
   state ={
-    personId: null
+    personId: null,
+    planetId: null,
+    starshipId: null
   }
 
-  getPersonId = (personId) => this.setState({personId})
-  
+  getPersonId = (personId) => this.setState({personId});
+
+  getPlanetId = (planetId) => this.setState({planetId});
+
+  getStarshipId = (starshipId) => this.setState({starshipId});
 
   render(){
-    const { personId } = this.state;
+    const { personId, planetId, starshipId } = this.state;
     return (
       <div>
         <Header />
         <RandomPlanet />
-        <div className="row mb2">
-          <div className="col-md-6">
-            <ItemList getPersonId={this.getPersonId} getData={this.swapiService.getAllPerson}/>
-          </div>
-          <div className="col-md-6">
-            {personId? <PersonDetails id ={personId}/> : "Select a parson from a list"}
-          </div>
-        </div>
+        <PersonPage personId={personId} getPersonId={this.getPersonId} getData={this.swapiService.getAllPerson}/>
+        <PlanetPage planetId={planetId} getPlanetId={this.getPlanetId} getData={this.swapiService.getAllPlanets}/>
+        <StarshipPage starshipId={starshipId} getStarshipId={this.getStarshipId} getData={this.swapiService.getAllStarships}/>
       </div>
     );
   } 

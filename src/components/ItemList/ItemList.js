@@ -35,8 +35,8 @@ export default class ItemList extends Component {
 
   render() {
     const { item, err, loading } = this.state;
-    const { getPersonId } = this.props;
-    const catchError = err ? <ErrorIndicator /> : <ItemRender persons = {item} getPersonId={getPersonId}/>;
+    const { getItemId, renderItem } = this.props;
+    const catchError = err ? <ErrorIndicator /> : <ItemRender items = {item} getItemId={getItemId} renderItem={renderItem}/>;
     const content = loading ? <Spiner /> : catchError;
     return (
       <ul className="item-list list-group">

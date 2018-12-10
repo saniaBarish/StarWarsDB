@@ -1,13 +1,14 @@
 import React from "react";
 
-const ItemRender = ({persons, getPersonId}) =>{
-    return persons.map( ({id, name}) => {
+const ItemRender = ({items, getItemId, renderItem}) =>{
+    return items.map( (item) => {
+      const {id} = item;
       return(
         <li className="list-group-item"
             key = {id}
-            onClick={()=> getPersonId(id)}
+            onClick={()=> getItemId(id)}
             >
-          {name}
+          {renderItem(item)}
         </li>
       )
     })
