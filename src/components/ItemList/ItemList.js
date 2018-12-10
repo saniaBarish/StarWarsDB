@@ -13,28 +13,34 @@ export default class ItemList extends Component {
 
   state = {
     persons: null,
-    err: false
+    err: false,
+    loading: true
   }
 
   componentDidMount(){
     this.swapiService.getAllPerson()
     .then(persons => {
-      this.setState({persons})
+      this.setState({
+        persons,
+        loading: false
+      })
     })
     .catch(err =>{
       this.setState({
-        err: true
+        err: true,
+        loading: false
       })
     })
   }
 
   render() {
-    const { persons, err } = this.state;
+    const { persons, err, loading } = this.state;
     const { getPersonId } = this.props;
-    const content = err ? <ErrorIndicator /> : <ItemRender persons = {persons} getPersonId={getPersonId}/>;
+    const catchError = err ? <ErrorIndicator /> : <ItemRender persons = {persons} getPersonId={getPersonId}/>;
+    const content = loading ? <Spiner /> : catchError;
     return (
       <ul className="item-list list-group">
-        {persons ? content : <Spiner />}
+        {content}
       </ul>
     );
   }
