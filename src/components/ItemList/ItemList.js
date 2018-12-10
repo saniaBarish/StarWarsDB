@@ -12,16 +12,16 @@ export default class ItemList extends Component {
   swapiService = new SwapiService();
 
   state = {
-    persons: null,
+    item: null,
     err: false,
     loading: true
   }
 
   componentDidMount(){
-    this.swapiService.getAllPerson()
-    .then(persons => {
+    this.props.getData()
+    .then(item => {
       this.setState({
-        persons,
+        item,
         loading: false
       })
     })
@@ -34,9 +34,9 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { persons, err, loading } = this.state;
+    const { item, err, loading } = this.state;
     const { getPersonId } = this.props;
-    const catchError = err ? <ErrorIndicator /> : <ItemRender persons = {persons} getPersonId={getPersonId}/>;
+    const catchError = err ? <ErrorIndicator /> : <ItemRender persons = {item} getPersonId={getPersonId}/>;
     const content = loading ? <Spiner /> : catchError;
     return (
       <ul className="item-list list-group">
