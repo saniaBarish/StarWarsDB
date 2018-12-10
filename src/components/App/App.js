@@ -6,6 +6,7 @@ import PersonPage from "../PersonPage";
 import SwapiService from "../../services/SwapiService";
 import PlanetPage from "../PlanetPage";
 import StarshipPage from "../StarshipPage";
+import ErrorBoundry from "../ErrorBoundry";
 
 
 import "./App.css";
@@ -32,7 +33,9 @@ export default class App extends Component {
       <div>
         <Header />
         <RandomPlanet />
-        <PersonPage personId={personId} getPersonId={this.getPersonId} getData={this.swapiService.getAllPerson}/>
+        <ErrorBoundry>
+          <PersonPage personId={personId} getPersonId={this.getPersonId} getData={this.swapiService.getAllPerson}/>
+        </ErrorBoundry>
         <PlanetPage planetId={planetId} getPlanetId={this.getPlanetId} getData={this.swapiService.getAllPlanets}/>
         <StarshipPage starshipId={starshipId} getStarshipId={this.getStarshipId} getData={this.swapiService.getAllStarships}/>
       </div>

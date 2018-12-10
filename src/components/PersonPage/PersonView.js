@@ -23,6 +23,9 @@ const PersonView = ({person}) =>{
               <span className="term">Eye Color</span>
               <span>{eyeColor}</span>
             </li>
+            <li className="list-group-item">
+              <button onClick={() => {throw new Error("Crash")}}>Error</button>
+            </li>
           </ul>
         </div>
       </React.Fragment>
