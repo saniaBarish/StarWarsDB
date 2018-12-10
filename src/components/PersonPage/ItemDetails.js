@@ -1,18 +1,15 @@
 import React,{Component} from "react";
 
-import SwapiService from "../../services/SwapiService";
 import Spiner from "../Spiner";
 import ErrorIndicator from "../ErrorIndicator";
-import PersonView from "./PersonView";
+import ItemView,{Record} from "./ItemView";
 
-import "./PersonDetails.css";
+import "./ItemDetails.css";
 
-export default class PersonDetails extends Component {
-
-  swapiService = new SwapiService();
+export default class ItemDetails extends Component {
 
   state={
-    person: null,
+    item: null,
     err: false,
     loading: true
   }
@@ -25,8 +22,8 @@ export default class PersonDetails extends Component {
   }
 
   componentDidMount(){
-    if (!this.state.person){
-      this.updatePerson(this.props.id)
+    if (!this.state.item){
+      this.updateItem(this.props.id)
     }
   }
 
@@ -35,15 +32,15 @@ export default class PersonDetails extends Component {
       this.setState({
         loading:true
       })
-      this.updatePerson(this.props.id);
+      this.updateItem(this.props.id);
     }
   }
 
-  updatePerson = (id) =>{
-    this.swapiService.getPerson(id)
-    .then(person => {
+  updateItem = (id) =>{
+    this.props.getItem(id)
+    .then(item => {
       this.setState({
-        person,
+        item,
         loading: false
       });
     })
@@ -52,9 +49,13 @@ export default class PersonDetails extends Component {
 
   render() {
 
-    const { person, err, loading } = this.state;
-
-    const catchErr = err ? <ErrorIndicator /> : <PersonView person={person} />;
+    const { item, err, loading } = this.state;
+    const {getPersonImage} = this.props;
+    const catchErr = err ? <ErrorIndicator /> : 
+      <ItemView item={item} getPersonImage={getPersonImage}> 
+        <Record field="gender" label="Gender"/>
+        <Record field="eyeColor" label="Eye Color"/>
+      </ItemView>;
 
     const content = loading ?  <Spiner /> : catchErr;
 

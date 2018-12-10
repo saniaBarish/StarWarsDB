@@ -1,3 +1,3 @@
-import PersonPage from "./PersonPage";
+import ItemPage from "./ItemPage";
 
-export default PersonPage;
+export default ItemPage;

@@ -6,7 +6,7 @@ const ItemRender = ({items, getItemId, renderItem}) =>{
       return(
         <li className="list-group-item"
             key = {id}
-            onClick={()=> getItemId(id)}
+            onClick={() => getItemId(id)}
             >
           {renderItem(item)}
         </li>
