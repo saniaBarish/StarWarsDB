@@ -2,7 +2,16 @@ import React, {Component} from "react";
 
 import Header from "../Header";
 import RandomPlanet from "../RandomPlanet";
-import ItemPage from "../PersonPage";
+import ItemPage from "../ItemPage";
+import ItemDetails from "../ItemDetails";
+import {
+  PersonList,
+  PlanetList,
+  StarshipList,
+  PlanetDetails, 
+  PersonDetails, 
+  StarshipDetails
+} from "../StarWarsComponent";
 import SwapiService from "../../services/SwapiService";
 import ErrorBoundry from "../ErrorBoundry";
 
@@ -19,17 +28,17 @@ export default class App extends Component {
 
   getItemId = (itemId) => {this.setState({itemId})};
 
-  getPerson = (id) =>{
-    return this.swapiService.getPerson(id)
-  }
-
-  getPlanet = (id) =>{
-    return this.swapiService.getPlanet(id)
-  }
-
   render(){
     const { itemId } = this.state;
-    const {getPersonImage, getPlanetImage, getStarshipImage} = this.swapiService;
+    const {getPersonImage, getPerson, getPlanet, getPlanetImage} = this.swapiService;
+    const personList = (
+      <PersonList 
+        getItemId={this.getItemId}>
+        {({name, birthYear}) => `${name} (${birthYear})`}
+      </PersonList>
+    )
+
+    const personDetails = <PersonDetails id={itemId}/>
     return (
       <div>
         <ErrorBoundry>
@@ -39,23 +48,7 @@ export default class App extends Component {
           <RandomPlanet />
         </ErrorBoundry>
         <ErrorBoundry>
-          <ItemPage 
-            itemId={itemId} 
-            getItemId={this.getItemId} 
-            getData={this.swapiService.getAllPerson}
-            renderItem={({name, birthYear}) => `${name} (${birthYear})`}
-            getItem={this.getPerson}
-            getPersonImage={getPersonImage}/>
-          {/* <ItemPage 
-            itemId={itemId} 
-            getItemId={this.getItemId} 
-            getData={this.swapiService.getAllPlanets}
-            renderItem={({name}) => `${name}`}
-            getItem={this.getPlanet}/> */}
-          {/* <ItemPage 
-            itemId={itemId} 
-            getItemId={this.getItemId} 
-            getData={this.swapiService.getAllStarships}/> */}
+          <ItemPage left={personList} right={personDetails}/>
         </ErrorBoundry>
       </div>
     );

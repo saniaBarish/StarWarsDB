@@ -1,26 +1,13 @@
 import React,{Component} from "react";
 
-const Record = ({item,field, label }) =>{
-  return(
-    <li className="list-group-item">
-      <span className="term">{label}</span>
-      <span>{item[field]}</span>
-    </li>
-  );
-};
-
-export {
-  Record
-}
-
 export default class ItemView extends Component{
   render(){
-    const {item, getPersonImage } = this.props; 
+    const {item, getImage } = this.props; 
     const {id, name} = item;
     return(
       <React.Fragment>
         <img className="person-image"
-          src={getPersonImage(id)}
+          src={getImage(id)}
           alt="Loading..."
         />
         <div className="card-body">
