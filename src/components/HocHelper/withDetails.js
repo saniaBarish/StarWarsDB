@@ -5,7 +5,7 @@ import Spiner from "../Spiner";
 import Record from "../Record";
 
 
-const withDetails = (View, getData, getImage) =>{
+const withDetails = (View) =>{
     return class extends Component{
   
       state={
@@ -40,7 +40,7 @@ const withDetails = (View, getData, getImage) =>{
         if(!id){
           id = 11;
         }
-        getData(id)
+        this.props.getData(id)
         .then(item => {
           this.setState({
             item,
@@ -52,6 +52,8 @@ const withDetails = (View, getData, getImage) =>{
   
       render(){
         const { item, err, loading } = this.state;
+        // console.log(this.props)
+        const {getImage} = this.props;
         
         const itemKey = item ? Object.keys(item) : [];
         const transformItemKey = (str) => {

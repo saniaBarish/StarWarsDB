@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import Header from "../Header";
 import RandomPlanet from "../RandomPlanet";
 import ItemPage from "../ItemPage";
-import ItemDetails from "../ItemDetails";
+import { SwapiServiceProvider } from "../SwapiServiceContext"
 import {
   PersonList,
   PlanetList,
@@ -30,11 +30,9 @@ export default class App extends Component {
 
   render(){
     const { itemId } = this.state;
-    const {getPersonImage, getPerson, getPlanet, getPlanetImage} = this.swapiService;
     const personList = (
       <PersonList 
         getItemId={this.getItemId}>
-        {({name, birthYear}) => `${name} (${birthYear})`}
       </PersonList>
     )
 
@@ -42,13 +40,17 @@ export default class App extends Component {
     return (
       <div>
         <ErrorBoundry>
-          <Header />
-        </ErrorBoundry>
-        <ErrorBoundry>
-          <RandomPlanet />
-        </ErrorBoundry>
-        <ErrorBoundry>
-          <ItemPage left={personList} right={personDetails}/>
+          <SwapiServiceProvider value={this.swapiService}>
+            <ErrorBoundry>
+              <Header />
+            </ErrorBoundry>
+            <ErrorBoundry>
+              <RandomPlanet />
+            </ErrorBoundry>
+            <ErrorBoundry>
+              <ItemPage left={personList} right={personDetails}/>
+            </ErrorBoundry>
+          </SwapiServiceProvider>
         </ErrorBoundry>
       </div>
     );

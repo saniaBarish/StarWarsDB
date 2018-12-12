@@ -6,7 +6,19 @@ import SwapiService from "../../services/SwapiService";
 
 const {getAllPerson, getAllPlanets, getAllStarships} = new SwapiService();
 
-const PersonList = withData(ItemList, getAllPerson);
+const withRanderChildren = (List, renderFunc) => {
+    return (props) =>{
+        return (
+            <List {...props}>
+                {renderFunc}
+            </List>
+        )
+    }
+}
+
+const renderName = ({ name }) => <span> {name} </span>
+
+const PersonList = withData(withRanderChildren(ItemList, renderName), getAllPerson);
 
 const PlanetList = withData(ItemList, getAllPlanets);
 
