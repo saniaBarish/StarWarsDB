@@ -1,4 +1,31 @@
-import {withData} from "./WithData";
+import withSwapiServiceConsumer from "./withSwapiServiceConsumer";
+import compose from "./compose";
+import {withData} from "./withData";
 import {withDetails} from "./withDetails";
+import withRanderChildren from "./withRanderChildren";
+import withRecord from "./withRecord"
 
-export {withData, withDetails};
+import {
+    mapPersonMethodsToProps,
+    mapStarshipMethodsToProps,
+    mapPlanetMethodsToProps,
+    mapAllPersonMethodsToProps,
+    mapAllPlanetMethodsToProps,
+    mapAllStarshipMethodsToProps
+} from "./methodsToProps";
+
+
+export {
+    withData, 
+    withDetails,
+    withSwapiServiceConsumer,
+    mapPersonMethodsToProps,
+    mapPlanetMethodsToProps,
+    mapStarshipMethodsToProps,
+    compose,
+    mapAllPersonMethodsToProps,
+    mapAllPlanetMethodsToProps,
+    mapAllStarshipMethodsToProps,
+    withRanderChildren,
+    withRecord
+};

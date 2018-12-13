@@ -2,13 +2,13 @@ import {
     PersonList,
     PlanetList,
     StarshipList
-} from "./ItemList";
+} from "./List";
 
 import {
     PlanetDetails, 
     PersonDetails, 
     StarshipDetails
-} from "./ItemDetails"
+} from "./Details"
 
 export {
     PersonList,

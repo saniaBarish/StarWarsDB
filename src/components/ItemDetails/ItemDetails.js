@@ -1,10 +1,8 @@
-import React,{Component} from "react";
+import React from "react";
 
 import "./ItemDetails.css";
 
-class ItemDetails extends Component {
-  render() {
-    const {item, getImage } = this.props; 
+const ItemDetails = ({ item, getImage, record}) => {
     const {id, name} = item;
     return (
       <div className="person-details card">
@@ -15,14 +13,12 @@ class ItemDetails extends Component {
         <div className="card-body">
           <h4>{name}</h4>
           <ul className="list-group list-group-flush">
-            {React.Children.map(this.props.children, (child) =>{
-              return React.cloneElement(child, { item })
-            })}
+           {record(item)}
           </ul>
         </div>
       </div>
     )
-  }
+  
 }
 
 export default ItemDetails;

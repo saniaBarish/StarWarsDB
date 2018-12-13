@@ -2,17 +2,9 @@ import React, {Component} from "react";
 
 import Header from "../Header";
 import RandomPlanet from "../RandomPlanet";
-import ItemPage from "../ItemPage";
+import {PersonPage, PlanetPage, StarshipPage} from "../Pages";
 import { SwapiServiceProvider } from "../SwapiServiceContext"
-import {
-  PersonList,
-  PlanetList,
-  StarshipList,
-  PlanetDetails, 
-  PersonDetails, 
-  StarshipDetails
-} from "../StarWarsComponent";
-import SwapiService from "../../services/SwapiService";
+import {SwapiService} from "../../services";
 import ErrorBoundry from "../ErrorBoundry";
 
 
@@ -22,21 +14,8 @@ export default class App extends Component {
 
   swapiService = new SwapiService();
 
-  state ={
-    itemId: null,
-  }
-
-  getItemId = (itemId) => {this.setState({itemId})};
-
   render(){
-    const { itemId } = this.state;
-    const personList = (
-      <PersonList 
-        getItemId={this.getItemId}>
-      </PersonList>
-    )
-
-    const personDetails = <PersonDetails id={itemId}/>
+  
     return (
       <div>
         <ErrorBoundry>
@@ -46,9 +25,9 @@ export default class App extends Component {
             </ErrorBoundry>
             <ErrorBoundry>
               <RandomPlanet />
-            </ErrorBoundry>
-            <ErrorBoundry>
-              <ItemPage left={personList} right={personDetails}/>
+              <PersonPage />
+              <PlanetPage />
+              <StarshipPage />
             </ErrorBoundry>
           </SwapiServiceProvider>
         </ErrorBoundry>

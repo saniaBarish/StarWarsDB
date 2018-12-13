@@ -3,7 +3,6 @@ import React from "react";
 import "./ItemList.css";
 
 const ItemList = (props) =>{
-
   const {data, getItemId, children: renderItem} = props;
 
   const items = data.map( (item) => {
