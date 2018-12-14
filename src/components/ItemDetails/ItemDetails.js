@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types"
 
 import "./ItemDetails.css";
 
@@ -20,5 +21,15 @@ const ItemDetails = ({ item, getImage, record}) => {
     )
   
 }
+
+ItemDetails.propType = {
+  item: PropTypes.objectOf({
+    id: PropTypes.number,
+    name: PropTypes.string
+  }),
+  getImage: PropTypes.func,
+  record: PropTypes.func
+}
+
 
 export default ItemDetails;

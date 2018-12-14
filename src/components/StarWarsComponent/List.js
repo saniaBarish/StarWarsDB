@@ -11,10 +11,6 @@ import {
     withRanderChildren
 } from "../HocHelper";
 
-
-
-
-
 const renderPerson = ({ name }) => <span> {name} </span>
 
 const renderPlanet = ({name, diameter}) => <span>{name} (Diameter: {diameter})</span>
