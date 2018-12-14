@@ -59,6 +59,12 @@ const withDetails = (View) =>{
         })
         .catch(this.onError)
         }
+        else{
+            this.setState({
+              start: true,
+              loading: false
+            })
+        }
         
       }
       

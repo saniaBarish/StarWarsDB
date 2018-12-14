@@ -18,8 +18,6 @@ export default class App extends Component {
   homePage = "/StarWarsDB"
 
   render(){
-    console.log(this.homePage)
-  
     return (
       <div>
         <ErrorBoundry>
